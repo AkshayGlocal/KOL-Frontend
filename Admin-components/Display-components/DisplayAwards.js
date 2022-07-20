@@ -6,6 +6,7 @@ export default function DisplayAwards(props) {
 	const [ displayPress, setdisplayPress ] = useState([ {} ]);
 	useEffect(
 		() => {
+			
 			data.map((e) => {
 				let tempobj = {};
 
