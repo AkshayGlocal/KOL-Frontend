@@ -201,13 +201,17 @@ export default function ProfileSnapshot() {
 											<ProfessionalActivities />
 										
 										</Tab>
+										{ <Tab eventKey="qualifications" title="Qualifications">
+											<Qualifications />
+										</Tab> }
+										<Tab eventKey="conference" title="Conference">
+											<Conference />
+										</Tab>
 										<Tab eventKey="social media" title="Social Media">
 											<SocialMedia />
 										</Tab>
 
-										{ <Tab eventKey="qualifications" title="Qualifications">
-											<Qualifications />
-										</Tab> }
+										
 										{/* { <Tab eventKey="awards" title="Awards">
 											<Awards />
 										</Tab> } */}
@@ -220,9 +224,7 @@ export default function ProfileSnapshot() {
 										<Tab eventKey="publications" title="Publications">
 											<Publications />
 										</Tab>
-										<Tab eventKey="conference" title="Conference">
-											<Conference />
-										</Tab>
+
 										<Tab eventKey="awards" title="Awards">
 											<Awards />
 										</Tab>

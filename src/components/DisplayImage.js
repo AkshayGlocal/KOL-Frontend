@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../css/DisplayImage.css';
+
 export function DisplayImage(props) {
 	let data = props.Results;
 	let results = [];

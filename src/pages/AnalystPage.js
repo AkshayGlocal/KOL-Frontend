@@ -111,9 +111,7 @@ export default function AnalystPage() {
 				>
 					{({ results, filters, searchTerm ,totalResults,clearFilters}) => {
 						//let resultdata = ConvertRawDatatoJson(results);
-						let halfLength = Math.ceil(results.length / 2);
-						let result1 = results.slice(0, halfLength);
-						let result2 = results.slice(halfLength, results.length);
+						
 						
 						return (
 							<div className="outer-container-mainpage">
@@ -223,8 +221,8 @@ export default function AnalystPage() {
 									<div className="main-content">
 										<div className="kol-display-content">
 	
-											<DisplayAnalyst Results={result1} />
-											<DisplayAnalyst Results={result2} />
+
+											<DisplayAnalyst Results={results} />
 
 										</div>
 									</div>

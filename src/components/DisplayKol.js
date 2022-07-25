@@ -5,7 +5,6 @@ import { KolIdContext } from '../context/KolIdContext';
 import { AreasofInterestsContext } from '../context/AreasOfInterests';
 import { SpecialityContext } from '../context/SpecialityContext';
 
-
 export default function DisplayKol(props) {
 	let data = props.Results;
 	let results = [];
@@ -72,7 +71,7 @@ export default function DisplayKol(props) {
 		newdisplayKol[index].isClicked = false;
 		setdisplayKol(newdisplayKol);
 	};
-	
+
 	return (
 		<div>
 			{displayKol.map((e, index) => (
@@ -85,28 +84,27 @@ export default function DisplayKol(props) {
 								navigate('/profiles');
 							}}
 						>
-							{e.kol_name}
+							{e.salutation}&nbsp;
+							{e.kol_name}&nbsp;
+							{e.suffix}.
 						</button>
 					</h2>
 					<div className="Card-field">
-						<p>ID : {e.ID}</p>
+						{/* <p>ID : {e.ID}</p> */}
 						<p>
+							<p>Title :{e.title}</p>
 							areas_of_interests :{' '}
-							
 							{e.areas_of_interests &&
-								e.areas_of_interests.map((e, index) => (
-									
-									<span className='area-card'>
+								e.areas_of_interests.map((j, index) => (
+									<span className="area-card">
 										<button
 											onClick={() => {
-												AreasofInterestCtx.setAreasofInterestsHandler(e);
+												AreasofInterestCtx.setAreasofInterestsHandler(j);
 												navigate('/areasofinterestshome');
-												
 											}}
 										>
-											
-											{e}&#44;&nbsp;
-											
+											{j}
+											{index != e.areas_of_interests.length-1 ? <span>,</span> :<span>.</span>}
 										</button>
 									</span>
 								))}
@@ -114,21 +112,21 @@ export default function DisplayKol(props) {
 						<p>
 							Specialty :{' '}
 							{e.specialty &&
-								e.specialty.map((e, index) => (
-									<span className='area-card'>
+								e.specialty.map((j, index) => (
+									<span className="area-card">
 										<button
 											onClick={() => {
-												SpecialityCtx.setSpecialityHandler(e);
+												SpecialityCtx.setSpecialityHandler(j);
 												navigate('/specialtyhome');
-												
 											}}
 										>
-										{e}&#44;&nbsp;
+											{j}
+											{index != e.specialty.length-1 ? <span>,</span> :<span>.</span>}
 										</button>
 									</span>
 								))}
 						</p>
-						<p>Country : {e.country}</p>
+						<p>Primary Affiliation :{e.primary_affiliation}</p>
 						{e.isClicked ? null : (
 							<button
 								onClick={() => {
@@ -140,17 +138,23 @@ export default function DisplayKol(props) {
 						)}
 						{e.isClicked ? (
 							<div>
-								<p>Gender :{e.gender}</p>
-								<p>First Name :{e.first_name}</p>
+								{/* <p>Gender :{e.gender}</p> */}
+								{/* <p>First Name :{e.first_name}</p>
 								<p>Middle Initial :{e.middle_initial}</p>
-								<p>Last Name :{e.last_name}</p>
-								<p>Suffix :{e.suffix}</p>
-								<p>Title :{e.title}</p>
+								<p>Last Name :{e.last_name}</p> */}
+								{/* <p>Suffix :{e.suffix}</p> */}
+								<p>
+									Address : {e.address1}&nbsp;,
+									{e.city}&nbsp;,
+									{e.state}&nbsp;,
+									{e.country}.
+								</p>
+								{/* <p>Country : {e.country}</p>
+								<p>City :{e.city}</p>
 								<p>State :{e.state}</p>
-								<p>Primary Affiliation :{e.primary_affiliation}</p>
 								<p>Address 1:{e.address1}</p>
-								<p>Address 2:{e.address2}</p>
-								<p>Salutation :{e.salutation}</p>
+								<p>Address 2:{e.address2}</p> */}
+								{/* <p>Salutation :{e.salutation}</p> */}
 								<p>Postal Code :{e.postal_code}</p>
 								<button
 									onClick={() => {

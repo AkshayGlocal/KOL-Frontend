@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import DisplayProfessionalActivities from '../components/DisplayProfessionalActivities';
 import ElasticSearchConstants from '../constants/ElasticSearchConstants';
 import { ProfessionalContext } from '../context/ProfessionalContext';
+import TabularDataprofession from './TabularDataprofession';
 
 const connector = new AppSearchAPIConnector({
 	searchKey: ElasticSearchConstants.SEARCH_KEY,
@@ -29,15 +30,15 @@ const configurationOptions = {
 		result_fields: {
 			id_kol: { raw: {} },
 			id: { raw: {} },
-			country: { raw: {} },
-			end_date: { raw: {} },
-			city: { raw: {} },
 			parent_organization: { raw: {} },
 			position_role: { raw: {} },
 			organization_name: { raw: {} },
 			parent_organization_type: { raw: {} },
 			affiliation_type: { raw: {} },
-			links: { raw: {} }
+			links: { raw: {} },
+			end_date: { raw: {} },
+			city: { raw: {} },
+			country: { raw: {} }
 		}
 	},
 
@@ -73,7 +74,8 @@ export default function ProfessionalActivities() {
 						return (
 							<div>
 								<div>
-									<DisplayProfessionalActivities Results={results} />
+									{/* <DisplayProfessionalActivities Results={results} /> */}
+									<TabularDataprofession Results={results} />
 								</div>
 							</div>
 						);

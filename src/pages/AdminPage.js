@@ -186,9 +186,7 @@ export default function AdminPage() {
 				>
 					{({ results, filters, searchTerm, setSearchTerm,totalResults,reset,clearFilters }) => {
 					
-						let halfLength = Math.ceil(results.length / 2);
-						let result1 = results.slice(0, halfLength);
-						let result2 = results.slice(halfLength, results.length);
+						
 						//let resultdata = ConvertRawDatatoJson(results);
 						return (
 							<div className="outer-container-mainpage">
@@ -304,8 +302,8 @@ export default function AdminPage() {
 									</div>
 									<div className="main-content">
 										<div className="kol-display-content">
-											<DisplayKol Results={result1} />
-											<DisplayKol Results={result2} />
+											<DisplayKol Results={results} />
+
 											
 										</div>
 									</div>

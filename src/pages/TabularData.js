@@ -80,7 +80,7 @@ export default function TabularData(props) {
     useEffect(()=>{
         data.map((e)=>{
             let tempobj = {};
-            tempobj.topic = e.topic.raw;
+            if(e.topic.raw!=null)tempobj.topic = e.topic.raw;
             tempobj.press_text = e.press_text.raw;
             tempobj.scientific_platform = e.scientific_platform.raw;
             tempobj.date = e.date.raw;
