@@ -58,7 +58,8 @@ const configurationOptions = {
 			specialty: { raw: {} },
 			areas_of_interests: { raw: {} },
 			gender: { raw: {} },
-			npi_id:{raw:{}}
+			npi_id:{raw:{}},
+			languages:{raw:{}}
 		}
 	},
 

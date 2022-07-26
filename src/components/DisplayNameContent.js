@@ -22,6 +22,7 @@ export default function DisplayNameContent(props){
 				tempobj.specialty =e.specialty.raw;
                 tempobj.areas_of_interests = e.areas_of_interests.raw;
 				tempobj.npi_id = e.npi_id.raw;
+				tempobj.languages = e.languages.raw;
 				results.push(tempobj);
 			});
 			setDisplayNameContent(results);
@@ -73,8 +74,18 @@ export default function DisplayNameContent(props){
 								))}
 					
 					 </p>
+					 <p>languages : 
+					 {e.languages &&
+								e.languages.map((j, index) => (
+									<span className="area-card">
+										
+											{j}
+											{index != e.languages.length-1 ? <span>, </span>:<span>. </span>}
+		
+								</span>
+								))}
+					</p>
 					 <p className='npi-logo'><img src={npi} />&nbsp;NPI :&nbsp;{e.npi_id}</p>
-					 
 
                 </div>
 			))}
