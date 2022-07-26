@@ -47,6 +47,7 @@ const configurationOptions = {
 		query: '',
 		result_fields: {
 			id: { raw: {} },
+			salutation:{raw:{}},
 			kol_name: { raw: {} },
 			phone: { raw: {} },
 			address1: { raw: {} },
@@ -56,7 +57,8 @@ const configurationOptions = {
 			bio_summary: { raw: {} },
 			specialty: { raw: {} },
 			areas_of_interests: { raw: {} },
-			gender: { raw: {} }
+			gender: { raw: {} },
+			npi_id:{raw:{}}
 		}
 	},
 
@@ -141,7 +143,7 @@ export default function ProfileSnapshot() {
 									<div className='Name-profile-count-data'>
 										<div className='name-display' >
 											<DisplayNameContent Results={results} />
-											<p style={stylesP}>{KolIdCtx.kol_id}</p>
+
 										</div>
 										<div className='Profile-count-data'>
 										{/* <PieRechartComponent  press = {PressCtx}

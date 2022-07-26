@@ -43,6 +43,13 @@ const columns = [
   { id: 'country', label: 'Country', minWidth: 170 },
   { id: 'abstract_url_other_sources', label: 'Abstract URL ', minWidth: 170 },
   {
+    id: 'abstract_discription',
+    label: 'Abstract Discription',
+    minWidth: 800,
+    align: 'left',
+    
+  },
+  {
     id: 'city',
     label: 'City',
     minWidth: 170,
@@ -79,13 +86,7 @@ const columns = [
     align: 'left',
     
   },
-  {
-    id: 'abstract_discription',
-    label: 'Abstract Discription',
-    minWidth: 800,
-    align: 'left',
-    
-  },
+
   {
     id: 'event_part_date',
     label: 'Event Part Date',

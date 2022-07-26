@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import { KolIdContext } from '../context/KolIdContext';
+import { GenderContext } from '../context/GenderContext';
 import { AreasofInterestsContext } from '../context/AreasOfInterests';
 import { SpecialityContext } from '../context/SpecialityContext';
 
@@ -11,6 +12,8 @@ export default function DisplayKol(props) {
 	const [ displayKol, setdisplayKol ] = useState([ {} ]);
 	const navigate = useNavigate();
 	const KolIdCtx = useContext(KolIdContext);
+	const GenderCtx = useContext(GenderContext);
+	
 	const AreasofInterestCtx = useContext(AreasofInterestsContext);
 	const SpecialityCtx = useContext(SpecialityContext);
 	useEffect(
@@ -81,6 +84,7 @@ export default function DisplayKol(props) {
 							className="Profile-content"
 							onClick={() => {
 								KolIdCtx.setkolIdHandler(e.ID);
+								GenderCtx.setGenderHandler(e.gender);
 								navigate('/profiles');
 							}}
 						>
@@ -93,23 +97,7 @@ export default function DisplayKol(props) {
 						{/* <p>ID : {e.ID}</p> */}
 						<p>
 							<p>Title :{e.title}</p>
-							areas_of_interests :{' '}
-							{e.areas_of_interests &&
-								e.areas_of_interests.map((j, index) => (
-									<span className="area-card">
-										<button
-											onClick={() => {
-												AreasofInterestCtx.setAreasofInterestsHandler(j);
-												navigate('/areasofinterestshome');
-											}}
-										>
-											{j}
-											{index != e.areas_of_interests.length-1 ? <span>,</span> :<span>.</span>}
-										</button>
-									</span>
-								))}
-						</p>
-						<p>
+							<p>
 							Specialty :{' '}
 							{e.specialty &&
 								e.specialty.map((j, index) => (
@@ -126,6 +114,23 @@ export default function DisplayKol(props) {
 									</span>
 								))}
 						</p>
+							areas_of_interests :{' '}
+							{e.areas_of_interests &&
+								e.areas_of_interests.map((j, index) => (
+									<span className="area-card">
+										<button
+											onClick={() => {
+												AreasofInterestCtx.setAreasofInterestsHandler(j);
+												navigate('/areasofinterestshome');
+											}}
+										>
+											{j}
+											{index != e.areas_of_interests.length-1 ? <span>,</span> :<span>.</span>}
+										</button>
+									</span>
+								))}
+						</p>
+						
 						<p>Primary Affiliation :{e.primary_affiliation}</p>
 						{e.isClicked ? null : (
 							<button
