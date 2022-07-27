@@ -19,9 +19,4 @@ export function KolIdProvider(props){
     return <KolIdContext.Provider value={context}>
         {props.children}
     </KolIdContext.Provider>
-
 }
-
-
-
-

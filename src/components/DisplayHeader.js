@@ -8,7 +8,7 @@ export default function DisplayHeader(){
     return(
         <div className="Search-Box-header">
             <div className="image-logo">
-                <img src={logo} alt={"glocalmind"}/>
+                <img src={logo} alt={"glocalmind"} />
             </div>
             <div className="profile-logout">
                 <DropdownButton className="profile-logout-dropdown" id="dropdown-basic-button" title="Admin">

@@ -16,48 +16,41 @@ const styles ={
     
 }
 const columns = [
-  { id: 'topic', label: 'Topic', minWidth: 170 },
-  { id: 'press_text', label: 'Press Text', minWidth: 600 },
+  { id: 'position_role', label: 'Position Role', minWidth: 170 },
+  { id: 'organization_name', label: 'Organization Name', minWidth: 170 },
   {
-    id: 'scientific_platform',
-    label: 'Scientific Platform',
+    id: 'affiliation_type',
+    label: 'Affiliation Type',
     minWidth: 170,
     align: 'right',
     
   },
   {
-    id: 'date',
-    label: 'Date',
+    id: 'links',
+    label: 'Links',
     minWidth: 170,
     align: 'right',
     
   },
   {
-    id: 'url',
-    label: 'URL',
-    minWidth: 170,
-    align: 'right',
-    
-  },
-  
-  {
-    id: 'key_topic',
-    label: 'Key Topic',
+    id: 'end_date',
+    label: 'End Date',
     minWidth: 170,
     align: 'right',
     
   },
   
   {
-    id: 'other_topic',
-    label: 'Other Topic',
+    id: 'city',
+    label: 'City',
     minWidth: 170,
     align: 'right',
     
   },
+  
   {
-    id: 'bucket',
-    label: 'Bucket',
+    id: 'country',
+    label: 'Country',
     minWidth: 170,
     align: 'right',
     
@@ -73,21 +66,32 @@ key_topic,bucket,other_topic};
 
 
 
-export default function TabularData(props) {
+export default function TabularDataprofession(props) {
     let data = props.Results;
     let results = [];
     const  [tabledata,settabledata] = useState([{}]);
     useEffect(()=>{
         data.map((e)=>{
             let tempobj = {};
-            if(e.topic.raw!=null)tempobj.topic = e.topic.raw;
-            tempobj.press_text = e.press_text.raw;
-            tempobj.scientific_platform = e.scientific_platform.raw;
-            tempobj.date = e.date.raw;
-            tempobj.url = e.url.raw;
-            tempobj.key_topic = e.key_topic.raw;
-            tempobj.bucket= e.bucket.raw;
-            tempobj.other_topic = e.other_topic.raw;
+            // parent_organization: { raw: {} },
+// 			position_role: { raw: {} },
+// 			organization_name: { raw: {} },
+// 			parent_organization_type: { raw: {} },
+// 			affiliation_type: { raw: {} },
+// 			links: { raw: {} },
+// 			end_date: { raw: {} },
+// 			city: { raw: {} },
+// 			country: { raw: {} }
+		
+            tempobj.parent_organization = e.parent_organization.raw;
+            tempobj.position_role = e.position_role.raw;
+            tempobj.organization_name = e.organization_name.raw;
+            tempobj.parent_organization_type = e.parent_organization_type.raw;
+            tempobj.affiliation_type = e.affiliation_type.raw;
+            tempobj.links = e.links.raw;
+            tempobj.end_date= e.end_date.raw;
+            tempobj.city = e.city.raw;
+            tempobj.country = e.country.raw;
             results.push(tempobj);
         });
         settabledata(results);

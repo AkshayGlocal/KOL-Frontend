@@ -66,7 +66,7 @@ export default function DisplayAnalystSpecialty(props) {
 										>
 											
 											{e}&#44;&nbsp;
-											
+		
 										</button>
 									</span>
 							

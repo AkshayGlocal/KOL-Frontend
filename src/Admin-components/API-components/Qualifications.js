@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ElasticSearchConstants from '../../constants/ElasticSearchConstants';
 import DisplayQualifications from '../Display-components/DisplayQualifications';
 import { QualificationsContext } from '../../context/QualificationsContext';
+import TabularDataQualifications from '../../pages/TabularDataQualifications';
 
 
 const connector = new AppSearchAPIConnector({
@@ -77,7 +78,8 @@ export default function Qualifications(){
 							<div>
         
                                         <div>
-                                           <DisplayQualifications Results ={results} />
+                                           {/* <DisplayQualifications Results ={results} /> */}
+										   <TabularDataQualifications Results={results} />
                                         </div>
               
 							</div>

@@ -15,49 +15,57 @@ const styles ={
     width:'60rem',
     
 }
+
 const columns = [
-  { id: 'topic', label: 'Topic', minWidth: 170 },
-  { id: 'press_text', label: 'Press Text', minWidth: 600 },
+  { id: 'parent_organization', label: 'Parent Organization', minWidth: 170 },
+  { id: 'degree', label: 'Degree', minWidth: 170 },
   {
-    id: 'scientific_platform',
-    label: 'Scientific Platform',
+    id: 'additional_links',
+    label: 'Additional Links',
     minWidth: 170,
     align: 'right',
     
   },
   {
-    id: 'date',
-    label: 'Date',
+    id: 'institution_name',
+    label: 'Institution Name',
     minWidth: 170,
     align: 'right',
     
   },
+  {
+    id: 'education_type',
+    label: 'Education Type',
+    minWidth: 170,
+    align: 'right',
+    
+  },
+  
+  {
+    id: 'honors',
+    label: 'Honors',
+    minWidth: 170,
+    align: 'right',
+    
+  },
+  
   {
     id: 'url',
-    label: 'URL',
-    minWidth: 170,
-    align: 'right',
-    
-  },
-  
-  {
-    id: 'key_topic',
-    label: 'Key Topic',
-    minWidth: 170,
-    align: 'right',
-    
-  },
-  
-  {
-    id: 'other_topic',
-    label: 'Other Topic',
+    label: 'Url',
     minWidth: 170,
     align: 'right',
     
   },
   {
-    id: 'bucket',
-    label: 'Bucket',
+    id: 'start_date',
+    label: 'Start Date',
+    minWidth: 170,
+    align: 'right',
+    
+  },
+  {
+    id: 'end date',
+    label: 'End Date',
     minWidth: 170,
     align: 'right',
     
@@ -73,21 +81,32 @@ key_topic,bucket,other_topic};
 
 
 
-export default function TabularData(props) {
+export default function TabularDataQualifications(props) {
     let data = props.Results;
     let results = [];
     const  [tabledata,settabledata] = useState([{}]);
     useEffect(()=>{
         data.map((e)=>{
             let tempobj = {};
-            if(e.topic.raw!=null)tempobj.topic = e.topic.raw;
-            tempobj.press_text = e.press_text.raw;
-            tempobj.scientific_platform = e.scientific_platform.raw;
-            tempobj.date = e.date.raw;
+           // end_date:{raw:{}},
+// parent_organization:{raw:{}},
+// degree:{raw:{}},
+// additional_links:{raw:{}},
+// institution_name:{raw:{}},
+// education_type:{raw:{}},
+// honors:{raw:{}},
+// url:{raw:{}},
+// start_date:{raw:{}}
+		
+            tempobj.end_date = e.end_date.raw;
+            tempobj.parent_organization = e.parent_organization.raw;
+            tempobj.degree = e.degree.raw;
+            tempobj.additional_links = e.additional_links.raw;
+            tempobj.institution_name = e.institution_name.raw;
+            tempobj.education_type = e.education_type.raw;
+            tempobj.honors= e.honors.raw;
             tempobj.url = e.url.raw;
-            tempobj.key_topic = e.key_topic.raw;
-            tempobj.bucket= e.bucket.raw;
-            tempobj.other_topic = e.other_topic.raw;
+            tempobj.start_date = e.start_date.raw;
             results.push(tempobj);
         });
         settabledata(results);

@@ -200,6 +200,7 @@ body,html{
 .clear-filters:hover{
     border:1px solid red;
 }
+
 @media only screen and (min-width: 1430px ){
 	
 	.SearchImage img{
