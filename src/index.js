@@ -15,6 +15,7 @@ import { PublicationsProvider } from './context/Publications';
 import { ConferenceProvider } from './context/ConferenceContext';
 import { AreasofInterestsProvider } from './context/AreasOfInterests';
 import { SpecialityProvider } from './context/SpecialityContext';
+import { GenderProvider } from './context/GenderContext';
 
 
 ReactDOM.render(
@@ -31,8 +32,11 @@ ReactDOM.render(
 			<ConferenceProvider>
 			<AreasofInterestsProvider>
 			<SpecialityProvider>
-		
+			<GenderProvider>
+
 				<App />		
+
+			</GenderProvider>
 
 			</SpecialityProvider>
 			</AreasofInterestsProvider>

@@ -22,10 +22,18 @@ const configurationOptions = {
 			id: { raw: {} },
 			kol_name: { raw: {} },
 			phone: { raw: {} },
+			fax:{raw:{}},
+			extra_phone_numbers:{raw:{}},
+			primary_email:{raw:{}},
+			extra_email_addresses:{raw:{}},
+			suffix: { raw: {} },
 			address1: { raw: {} },
 			address2: { raw: {} },
-			suffix: { raw: {} },
+			city:{raw:{}},
+			state:{raw:{}},
 			country: { raw: {} },
+			postal_code:{raw:{}},
+			region:{raw:{}},
 			bio_summary: { raw: {} },
 			specialty: { raw: {} },
 			areas_of_interests: { raw: {} },
@@ -56,7 +64,6 @@ export default function PhoneAddress(){
 						return (
 							<div>
 								<DisplayPhoneAddress  Results={results}/>
-
 							</div>
 						);
 					}}

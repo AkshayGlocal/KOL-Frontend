@@ -244,7 +244,7 @@ export default function Specialty() {
 									</div>
 								</div>
 								<div className="resultsInfo">
-									<ResultsPerPage />.
+									<ResultsPerPage />
 									{filters.length > 0 ?(
 										<div className='clear-filters'>
 										
