@@ -138,15 +138,11 @@ export default function DisplayAnalyst(props) {
 						</button>	
 						
 						)
-						}
-						
-						
-						
-					
+						}	
 
 					</div>
 				</div>
 			))}
 		</div>
 	);
-}
+ }
