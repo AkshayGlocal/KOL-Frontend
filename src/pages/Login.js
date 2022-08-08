@@ -4,6 +4,11 @@ import { useRef } from 'react';
 import { useContext } from 'react';
 import logo from '../images/GlocalMind-Logo-F.png';
 import {UserRoleContext} from '../context/LoginContext'
+import ApiConstants from '../constants/ApiConstants';
+import axios from '../service/axios';
+import qs from 'qs';
+import jwtDecode from 'jwt-decode';
+
 export default function Login() {
 
 	const userNameCtx = useContext(UserRoleContext);
@@ -23,26 +28,53 @@ export default function Login() {
 		}
 	];
 
-	const formSubmitHandler = (event) => {
+	const formSubmitHandler = async (event) => {
 		event.preventDefault();
 		const enteredName = nameInputRef.current.value;
 		const enteredPassword = passInputRef.current.value;
-	
-		UserRoles.map((e) => {
-			if (enteredName === e.username && enteredPassword === e.password) {
-				e.isLoggedIn = true;
-				userNameCtx.setuserNameHandler(e.username);	
-				//console.log("username form "+userNameCtx.username);
-			}
-		});
-		UserRoles.map((e) => {
-			if (e.isLoggedIn) {
-				navigate(`/${e.username}`);
-			}
-		});
-		if (!UserRoles[0].isLoggedIn && !UserRoles[1].isLoggedIn) {
-			window.alert('enter correct password');
+		// const params = new URLSearchParams();
+		// params.append('username', enteredName);
+		// params.append('password', enteredPassword);	
+		const data ={
+			"username":enteredName,
+			"password":enteredPassword,
 		}
+		const options = {
+			method: 'POST',
+			headers: { 'content-type': 'application/x-www-form-urlencoded' },
+			data: qs.stringify(data),
+			url:ApiConstants.LOGIN_URL,
+		  };
+		  try {
+			const response = await axios(options);
+			// console.log(JSON.stringify(response?.data));
+			const access_token = response?.data?.access_token;
+			const s =jwtDecode(access_token);
+			const roles = s.roles;
+
+			
+			console.log(...roles);
+			console.log(access_token);
+		} catch (error) {
+			console.log(error);		
+		}
+
+
+		// UserRoles.map((e) => {
+		// 	if (enteredName === e.username && enteredPassword === e.password) {
+		// 		e.isLoggedIn = true;
+		// 		userNameCtx.setuserNameHandler(e.username);	
+		// 		//console.log("username form "+userNameCtx.username);
+		// 	}
+		// });
+		// UserRoles.map((e) => {
+		// 	if (e.isLoggedIn) {
+		// 		navigate(`/${e.username}`);
+		// 	}
+		// });
+		// if (!UserRoles[0].isLoggedIn && !UserRoles[1].isLoggedIn) {
+		// 	window.alert('enter correct password');
+		// }
 
 		//window.alert('enter correct password');
 	};
@@ -58,10 +90,12 @@ export default function Login() {
 				<img src={logo} alt={"glocalmind"}/>
 					<form onSubmit={formSubmitHandler}>
 						<div>
+							<label htmlFor='username' id='username'></label>
 							<input ref={nameInputRef} type="text" id="username" placeholder="User Name" />
 						</div>
 						<br />
 						<div>
+							<label htmlFor='password' id='password'></label>
 							<input ref={passInputRef} type="password" id="password" placeholder="Password" />
 						</div>
 						<br />
