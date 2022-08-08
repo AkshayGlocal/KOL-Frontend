@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { KolIdContext } from '../context/KolIdContext';
 import { AreasofInterestsContext } from '../context/AreasOfInterests';
 import { SpecialityContext } from '../context/SpecialityContext';
+import { AuthContext } from '../context/AuthContext';
 export default function DisplayAnalyst(props) {
 	let data = props.Results;
 	let results = [];
@@ -12,6 +13,8 @@ export default function DisplayAnalyst(props) {
 	const KolIdCtx = useContext(KolIdContext);
 	const AreasofInterestCtx = useContext(AreasofInterestsContext);
 	const SpecialityCtx = useContext(SpecialityContext);
+	const AuthCtx = useContext(AuthContext);
+
 	useEffect(
 		() => {
 			// id: { raw: {} },
@@ -23,6 +26,7 @@ export default function DisplayAnalyst(props) {
 			data.map((e) => {
 				let tempobj = {};
 				tempobj.isClicked = false;
+				tempobj.isRequested = false;
 				tempobj.ID = e.id.raw;
 				tempobj.country = e.country.raw;
 				tempobj.specialty = e.specialty.raw;
@@ -47,48 +51,53 @@ export default function DisplayAnalyst(props) {
 		setdisplayKol(newdisplayKol);
 	};
 
+	const RequestProfile = (index,id) =>{
+		const newdisplayKol = [...displayKol];
+		newdisplayKol[index].isRequested = true;
+		setdisplayKol(newdisplayKol);
+		console.log("Access Token->"+AuthCtx.Auth.access_token);
+		console.log("Refresh Token->"+AuthCtx.Auth.refresh_token);
+	 	console.log("Username->"+AuthCtx.Auth.enteredName);
+		console.log("ID->"+id);
+	}
 	return (
 		<div>
 			{displayKol.map((e, index) => (
 				<div className="Card">
 					<h2 style={{ color: '#3259ED', fontFamily: 'Archivo' }}>{e.ID}</h2>
 					<div className="Card-field">
-					<p>areas_of_interests : {
-							e.areas_of_interests && e.areas_of_interests.map((e,index)=>(
-								<span className='area-card'>
+						<p>
+							areas_of_interests :{' '}
+							{e.areas_of_interests &&
+								e.areas_of_interests.map((e, index) => (
+									<span className="area-card">
 										<button
 											onClick={() => {
 												AreasofInterestCtx.setAreasofInterestsHandler(e);
 												navigate('/analyst-areahome');
-												
 											}}
 										>
-											
 											{e}&#44;&nbsp;
-											
 										</button>
 									</span>
-							
-							))
-
-						}</p>
-						<p>Specialty : {
-	
-							e.specialty && e.specialty.map((e,index)=>(
-								<span className='area-card'>
+								))}
+						</p>
+						<p>
+							Specialty :{' '}
+							{e.specialty &&
+								e.specialty.map((e, index) => (
+									<span className="area-card">
 										<button
 											onClick={() => {
 												SpecialityCtx.setSpecialityHandler(e);
 												navigate('/analyst-specialtyhome');
-												
 											}}
 										>
-										{e}&#44;&nbsp;
+											{e}&#44;&nbsp;
 										</button>
 									</span>
-							))
-							
-						}</p>
+								))}
+						</p>
 						<p>Country : {e.country}</p>
 						{e.isClicked ? null : (
 							<button
@@ -112,7 +121,29 @@ export default function DisplayAnalyst(props) {
 								</button>
 							</div>
 						) : null}
-						<button> Request KOL profile</button>
+						{e.isRequested ? (
+							<h4>
+								Profile Requested
+							</h4>
+							
+						):(
+							<button
+						className='request-button'
+							onClick={() => {
+								RequestProfile(index,e.ID);
+							}}
+						>
+							{' '}
+							Request KOL profile
+						</button>	
+						
+						)
+						}
+						
+						
+						
+					
+
 					</div>
 				</div>
 			))}

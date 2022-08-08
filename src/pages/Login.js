@@ -8,22 +8,22 @@ import ApiConstants from '../constants/ApiConstants';
 import axios from '../service/axios';
 import qs from 'qs';
 import jwtDecode from 'jwt-decode';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Login() {
 
 	const userNameCtx = useContext(UserRoleContext);
+	const AuthCtx = useContext(AuthContext);
 	const navigate = useNavigate();
 	const nameInputRef = useRef();
 	const passInputRef = useRef();
 	const UserRoles = [
 		{
 			username: 'admin',
-			password: 'glocalmind',
 			isLoggedIn: false
 		},
 		{
 			username: 'analyst',
-			password: 'glocalmind',
 			isLoggedIn: false
 		}
 	];
@@ -49,13 +49,31 @@ export default function Login() {
 			const response = await axios(options);
 			// console.log(JSON.stringify(response?.data));
 			const access_token = response?.data?.access_token;
+			const refresh_token = response?.data?.refresh_token;
 			const s =jwtDecode(access_token);
 			const roles = s.roles;
-
-			
 			console.log(...roles);
-			console.log(access_token);
-		} catch (error) {
+			console.log("Access Token "+access_token);
+			console.log("Refresh Token "+refresh_token);
+
+			AuthCtx.setAuthHandler({access_token,refresh_token,roles,
+				enteredName
+			});
+			// set the role and navigate 
+
+			roles.map((e)=>{
+				if(e==="ROLE_SUPER_ADMIN" || e==="ROLE_ADMIN"){
+					UserRoles[0].isLoggedIn = true;
+					userNameCtx.setuserNameHandler("admin");
+					navigate('/admin');
+				}else{
+					UserRoles[1].isLoggedIn = true;
+					userNameCtx.setuserNameHandler("analyst");
+					navigate('/analyst');
+				}
+			})
+
+			} catch (error) {
 			console.log(error);		
 		}
 
