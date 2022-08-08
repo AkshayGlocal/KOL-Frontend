@@ -16,11 +16,14 @@ import { ConferenceProvider } from './context/ConferenceContext';
 import { AreasofInterestsProvider } from './context/AreasOfInterests';
 import { SpecialityProvider } from './context/SpecialityContext';
 import { GenderProvider } from './context/GenderContext';
+import { AuthContextProvider } from './context/AuthContext';
 
 
 ReactDOM.render(
 	<React.StrictMode>
+
 		 <LoginContextProvider>
+			<AuthContextProvider>
 			<KolIdProvider>
 			<PressProvider>
 			<ProfessionalProvider>
@@ -51,6 +54,7 @@ ReactDOM.render(
 
 			</PressProvider>
 			</KolIdProvider>
+			</AuthContextProvider>
 		 </LoginContextProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
