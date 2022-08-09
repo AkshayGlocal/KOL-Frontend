@@ -5,7 +5,11 @@ import { KolIdContext } from '../context/KolIdContext';
 import { AreasofInterestsContext } from '../context/AreasOfInterests';
 import { SpecialityContext } from '../context/SpecialityContext';
 import { AuthContext } from '../context/AuthContext';
-export default function DisplayAnalyst(props) {
+import check from '../images/checkarrow.png';
+import ApiConstants from '../constants/ApiConstants';
+import axios from '../service/axios';
+
+export default function DisplayAnalyst(props){
 	let data = props.Results;
 	let results = [];
 	const [ displayKol, setdisplayKol ] = useState([ {} ]);
@@ -59,6 +63,30 @@ export default function DisplayAnalyst(props) {
 		console.log("Refresh Token->"+AuthCtx.Auth.refresh_token);
 	 	console.log("Username->"+AuthCtx.Auth.enteredName);
 		console.log("ID->"+id);
+		
+		// get method to uri api/v1/users
+		// header Authorization add Bearer + access_token
+		
+		const sendToBackend = async()=>{
+		const access_token = AuthCtx.Auth.access_token;
+		const options = {
+			method:'GET',
+			headers:{
+				"Content-type": "application/json",
+				'Authorization':'Bearer '+access_token,
+				
+			},
+			url:ApiConstants.USERS_LISt,
+		};
+		try{
+			const response = await axios(options);
+			console.log("IN TRY "+response);
+		}catch(error){
+			console.log(error);
+		}
+	}
+		sendToBackend();
+
 	}
 	return (
 		<div>
@@ -122,10 +150,11 @@ export default function DisplayAnalyst(props) {
 							</div>
 						) : null}
 						{e.isRequested ? (
-							<h4>
-								Profile Requested
-							</h4>
-							
+							<div className='profile-requested'>
+								<p><img src={check}  alt='check'/>
+									Profile Requested</p>
+								
+							</div>
 						):(
 							<button
 						className='request-button'

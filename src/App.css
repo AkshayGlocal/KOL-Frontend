@@ -200,9 +200,10 @@ body,html{
 .clear-filters:hover{
     border:1px solid red;
 }
-.request-button{
-    background-color: green;
-    color: white;
+.profile-requested img{
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
 }
 
 @media only screen and (min-width: 1430px ){
