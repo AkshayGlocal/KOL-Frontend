@@ -54,7 +54,6 @@ export default function Login() {
 			const roles = s.roles;
 			console.log(...roles);
 			console.log("Access Token "+access_token);
-			console.log("Refresh Token "+refresh_token);
 
 			AuthCtx.setAuthHandler({access_token,refresh_token,roles,
 				enteredName

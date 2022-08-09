@@ -8,6 +8,7 @@ import { AuthContext } from '../context/AuthContext';
 import check from '../images/checkarrow.png';
 import ApiConstants from '../constants/ApiConstants';
 import axios from '../service/axios';
+import qs from 'qs';
 
 export default function DisplayAnalyst(props){
 	let data = props.Results;
@@ -56,37 +57,46 @@ export default function DisplayAnalyst(props){
 	};
 
 	const RequestProfile = (index,id) =>{
+		const date = new Date().toISOString();
 		const newdisplayKol = [...displayKol];
 		newdisplayKol[index].isRequested = true;
 		setdisplayKol(newdisplayKol);
 		console.log("Access Token->"+AuthCtx.Auth.access_token);
-		console.log("Refresh Token->"+AuthCtx.Auth.refresh_token);
+		//console.log("Refresh Token->"+AuthCtx.Auth.refresh_token);
 	 	console.log("Username->"+AuthCtx.Auth.enteredName);
 		console.log("ID->"+id);
 		
 		// get method to uri api/v1/users
 		// header Authorization add Bearer + access_token
-		
-		const sendToBackend = async()=>{
+	// 	"username":"johnsmith@glocalmind.com",
+    // "createdAt":2022,
+    // "kolProfileId":"12323"
+		const data = {
+			"username":AuthCtx.Auth.enteredName,
+			"createdAt":date,
+			"kolProfileId":id
+		}
+		const RequestProfileToBackend = async()=>{
 		const access_token = AuthCtx.Auth.access_token;
 		const options = {
-			method:'GET',
+			method:'POST',
 			headers:{
-				"Content-type": "application/json",
+				"content-type": "application/json",
 				'Authorization':'Bearer '+access_token,
-				
 			},
-			url:ApiConstants.USERS_LISt,
+			data:data,
+			url:ApiConstants.REQUEST_PROFILE,
 		};
 		try{
 			const response = await axios(options);
-			console.log("IN TRY "+response);
+			if(response?.status === 200){
+				console.log("Success");
+			}
 		}catch(error){
 			console.log(error);
 		}
 	}
-		sendToBackend();
-
+		RequestProfileToBackend();
 	}
 	return (
 		<div>
