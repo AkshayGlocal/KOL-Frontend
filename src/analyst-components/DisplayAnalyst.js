@@ -46,12 +46,12 @@ export default function DisplayAnalyst(props){
 			"http://localhost:8080/api/v1/sse"
 		  );
 		  sseForRequestProfile.onopen = (e) => {
-			console.log("SSE Connected !");
+			console.log("Connected !");
 		  };
 		  sseForRequestProfile.addEventListener("all-request-profile-event", (event) => {
 			let jsonData = JSON.parse(event.data);
 			setProfiles(jsonData);
-			console.log(jsonData);
+			// console.log(jsonData);
 
 		  });
 		  sseForRequestProfile.onerror = (error) => {
