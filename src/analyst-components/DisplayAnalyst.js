@@ -14,20 +14,16 @@ export default function DisplayAnalyst(props){
 	let data = props.Results;
 	let results = [];
 	const [ displayKol, setdisplayKol ] = useState([ {} ]);
+	const [globalRequest,setglobalRequest] = useState(false);
+	const [profiles,setProfiles] = useState([]);
+	const [listening, setListening] = useState(false);
 	const navigate = useNavigate();
 	const KolIdCtx = useContext(KolIdContext);
 	const AreasofInterestCtx = useContext(AreasofInterestsContext);
 	const SpecialityCtx = useContext(SpecialityContext);
 	const AuthCtx = useContext(AuthContext);
-
 	useEffect(
 		() => {
-			// id: { raw: {} },
-			// country:{raw:{}},
-			// specialty:{raw:{}},
-			// parent_organization:{raw:{}},
-			// primary_affiliation:{raw:{}},
-
 			data.map((e) => {
 				let tempobj = {};
 				tempobj.isClicked = false;
@@ -45,6 +41,46 @@ export default function DisplayAnalyst(props){
 		},
 		[ data ]
 	);
+	useEffect(()=>{
+		const sseForRequestProfile = new EventSource(
+			"http://localhost:8080/api/v1/sse"
+		  );
+		  sseForRequestProfile.onopen = (e) => {
+			console.log("SSE Connected !");
+		  };
+		  sseForRequestProfile.addEventListener("all-request-profile-event", (event) => {
+			let jsonData = JSON.parse(event.data);
+			setProfiles(jsonData);
+			console.log(jsonData);
+
+		  });
+		  sseForRequestProfile.onerror = (error) => {
+			console.log("SSE For sseForRequestProfile error", error);
+			sseForRequestProfile.close();
+		  };
+
+		  return () => {
+			sseForRequestProfile.close();
+		  };
+
+	},[globalRequest])
+	// useEffect(()=>{
+	// 		if (!listening) {
+	// 	        eventSource = new EventSource("http://localhost:8080/api/v1/approve/test");
+	// 	        eventSource.onmessage = (event) => {
+	// 	            console.log(event?.data);
+	// 	        }
+	// 	        eventSource.onerror = (err) => {
+	// 	            console.error("EventSource failed:", err);
+	// 	            eventSource?.close();
+	// 	        }
+	// 	        setListening(true)
+	// 	    }
+	// 	    return () => {
+	// 	            eventSource?.close();
+	// 	            console.log("event closed")
+	// 	    }
+	// 	},[globalRequest])
 	const viewMoreClick = (index) => {
 		const newdisplayKol = [ ...displayKol ];
 		newdisplayKol[index].isClicked = true;
@@ -59,6 +95,7 @@ export default function DisplayAnalyst(props){
 	const RequestProfile = (index,id) =>{
 		const date = new Date().toISOString();
 		const newdisplayKol = [...displayKol];
+		setglobalRequest(!globalRequest);
 		newdisplayKol[index].isRequested = true;
 		setdisplayKol(newdisplayKol);
 		console.log("Access Token->"+AuthCtx.Auth.access_token);
@@ -66,11 +103,6 @@ export default function DisplayAnalyst(props){
 	 	console.log("Username->"+AuthCtx.Auth.enteredName);
 		console.log("ID->"+id);
 		
-		// get method to uri api/v1/users
-		// header Authorization add Bearer + access_token
-	// 	"username":"johnsmith@glocalmind.com",
-    // "createdAt":2022,
-    // "kolProfileId":"12323"
 		const data = {
 			"username":AuthCtx.Auth.enteredName,
 			"createdAt":date,
@@ -100,6 +132,7 @@ export default function DisplayAnalyst(props){
 	}
 	return (
 		<div>
+			<h3>Approved Profiles {profiles.length}</h3>
 			{displayKol.map((e, index) => (
 				<div className="Card">
 					<h2 style={{ color: '#3259ED', fontFamily: 'Archivo' }}>{e.ID}</h2>
@@ -163,7 +196,6 @@ export default function DisplayAnalyst(props){
 							<div className='profile-requested'>
 								<p><img src={check}  alt='check'/>
 									Profile Requested</p>
-								
 							</div>
 						):(
 							<button
