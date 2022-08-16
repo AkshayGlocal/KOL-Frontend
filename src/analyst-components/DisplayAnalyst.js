@@ -133,6 +133,7 @@ export default function DisplayAnalyst(props){
 	return (
 		<div>
 			<h3>Approved Profiles {profiles.length}</h3>
+			<h5>{profiles.map(e=><p>{e}</p>)}</h5>
 			{displayKol.map((e, index) => (
 				<div className="Card">
 					<h2 style={{ color: '#3259ED', fontFamily: 'Archivo' }}>{e.ID}</h2>
