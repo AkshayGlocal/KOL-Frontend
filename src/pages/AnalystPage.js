@@ -119,6 +119,7 @@ export default function AnalystPage() {
 									<div className="image-logo">
 										<img src={logo1} alt={'GlocalMind'} />
 									</div>
+									
 									<div className="search">
 										<SearchBox
 											autocompleteMinimumCharacters={3}
@@ -134,9 +135,9 @@ export default function AnalystPage() {
 											inputProps={{ placeholder: 'Search for KOL Data' }}
 										/>
 									</div>
-
+									
 									<div className="log-btn">
-										<Logoutbtn className="Logout-btn" />
+										<Logoutbtn  className="Logout-btn" />
 									</div>
 								</div>
 								<div className="resultsInfo">
