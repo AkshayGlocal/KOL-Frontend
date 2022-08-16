@@ -17,7 +17,7 @@
   }
 .logout {
     display: flex;
-    width: 17vw;
+    /* width: 17vw; */
     justify-content: flex-end;
     margin-right: 20px;
     
@@ -27,9 +27,13 @@
 
 	color: white;
 }
+.notification-profile{
+  padding: 20px;
+  margin-right: 20px;
+}
 @media only screen and (min-width: 1430px ){
 	
 	.logout{
-		width:17vw;
+		/* width:17vw; */
 	}
 } 

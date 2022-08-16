@@ -17,12 +17,14 @@ import { AreasofInterestsProvider } from './context/AreasOfInterests';
 import { SpecialityProvider } from './context/SpecialityContext';
 import { GenderProvider } from './context/GenderContext';
 import { AuthContextProvider } from './context/AuthContext';
+import { NotificationProvider } from './context/Notification';
 
 
 ReactDOM.render(
 	<React.StrictMode>
 
 		 <LoginContextProvider>
+			<NotificationProvider>
 			<AuthContextProvider>
 			<KolIdProvider>
 			<PressProvider>
@@ -55,6 +57,7 @@ ReactDOM.render(
 			</PressProvider>
 			</KolIdProvider>
 			</AuthContextProvider>
+			</NotificationProvider>
 		 </LoginContextProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

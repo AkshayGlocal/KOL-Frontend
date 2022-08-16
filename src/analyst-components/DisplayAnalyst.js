@@ -10,6 +10,9 @@ import ApiConstants from '../constants/ApiConstants';
 import axios from '../service/axios';
 import qs from 'qs';
 
+import { NotificationContext } from '../context/Notification';
+import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse';
+
 export default function DisplayAnalyst(props){
 	let data = props.Results;
 	let results = [];
@@ -22,6 +25,7 @@ export default function DisplayAnalyst(props){
 	const AreasofInterestCtx = useContext(AreasofInterestsContext);
 	const SpecialityCtx = useContext(SpecialityContext);
 	const AuthCtx = useContext(AuthContext);
+	const NotificationCtx= useContext(NotificationContext);
 	useEffect(
 		() => {
 			data.map((e) => {
@@ -132,8 +136,11 @@ export default function DisplayAnalyst(props){
 	}
 	return (
 		<div>
-			<h3>Approved Profiles {profiles.length}</h3>
-			<h5>{profiles.map(e=><p>{e}</p>)}</h5>
+			{NotificationCtx.setNotificationHandler(profiles.length)}
+			
+			
+			
+			<h5>{profiles.map(e=><span>{e},&nbsp;&nbsp;</span>)}</h5>
 			{displayKol.map((e, index) => (
 				<div className="Card">
 					<h2 style={{ color: '#3259ED', fontFamily: 'Archivo' }}>{e.ID}</h2>

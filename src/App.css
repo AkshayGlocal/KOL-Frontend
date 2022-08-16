@@ -18,6 +18,11 @@ body,html{
 .sui-search-box__submit:focus{
 	
 }
+.approved-profile-count{
+    position:absolute;
+    right: 4rem;
+    
+}
 .sui-search-box__text-input{
 	border-right: none !important;
 	border-bottom-right-radius: none !important;
