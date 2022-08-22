@@ -136,11 +136,7 @@ export default function DisplayAnalyst(props){
 	}
 	return (
 		<div>
-			{NotificationCtx.setNotificationHandler(profiles.length)}
-			
-			
-			
-			<h5>{profiles.map(e=><span>{e},&nbsp;&nbsp;</span>)}</h5>
+			{NotificationCtx.setNotificationHandler(profiles)}
 			{displayKol.map((e, index) => (
 				<div className="Card">
 					<h2 style={{ color: '#3259ED', fontFamily: 'Archivo' }}>{e.ID}</h2>
