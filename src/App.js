@@ -23,7 +23,9 @@ import TabularData from './pages/TabularData';
 export default function App() {
 	const LoginUserCtx = useContext(UserRoleContext);
 	const userNameCtx = LoginUserCtx.username;
-
+	const elementprofilepage =()=>{
+		return userNameCtx ==='analyst' ? <AnalystPage/> : <AdminPage/>;
+	}
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -115,7 +117,10 @@ export default function App() {
 
 				<Route path="/layout" element={<ProfileLayout />} />
 
-				<Route path="*" element={<AdminPage />} />
+				{/* <Route path="*" element={<AdminPage />} /> */}
+				
+				<Route path="*" element={elementprofilepage} />
+
 			</Routes>
 		</BrowserRouter>
 	);

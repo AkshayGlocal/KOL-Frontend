@@ -1,12 +1,12 @@
 import { createContext,useState } from "react";
 
 export const NotificationContext = createContext({
-    Notification:0,
+    Notification:{},
     setNotificationHandler:()=>{}
 })
 
 export function NotificationProvider(props){
-    const [Notification,setNotification] = useState(0);
+    const [Notification,setNotification] = useState({});
 
     function setNotificationHandler(Notificationcount){
         setNotification(Notificationcount);
