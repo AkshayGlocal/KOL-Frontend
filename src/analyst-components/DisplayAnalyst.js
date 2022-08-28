@@ -19,9 +19,7 @@ export default function DisplayAnalyst(props){
 	const [ displayKol, setdisplayKol ] = useState([ {} ]);
 	const [globalRequest,setglobalRequest] = useState(false);
 	const [profiles,setProfiles] = useState([]);
-	const [listening, setListening] = useState(false);
 	const navigate = useNavigate();
-	const KolIdCtx = useContext(KolIdContext);
 	const AreasofInterestCtx = useContext(AreasofInterestsContext);
 	const SpecialityCtx = useContext(SpecialityContext);
 	const AuthCtx = useContext(AuthContext);
@@ -50,7 +48,7 @@ export default function DisplayAnalyst(props){
 			"http://localhost:8080/api/v1/sse"
 		  );
 		  sseForRequestProfile.onopen = (e) => {
-			console.log("Connected !");
+			// console.log("Connected !");
 		  };
 		  sseForRequestProfile.addEventListener("all-request-profile-event", (event) => {
 			let jsonData = JSON.parse(event.data);
@@ -97,15 +95,15 @@ export default function DisplayAnalyst(props){
 	};
 
 	const RequestProfile = (index,id) =>{
-		const date = new Date().toISOString();
+		const date = new Date();
 		const newdisplayKol = [...displayKol];
 		setglobalRequest(!globalRequest);
 		newdisplayKol[index].isRequested = true;
 		setdisplayKol(newdisplayKol);
-		console.log("Access Token->"+AuthCtx.Auth.access_token);
+		// console.log("Access Token->"+AuthCtx.Auth.access_token);
 		//console.log("Refresh Token->"+AuthCtx.Auth.refresh_token);
-	 	console.log("Username->"+AuthCtx.Auth.enteredName);
-		console.log("ID->"+id);
+	 	// console.log("Username->"+AuthCtx.Auth.enteredName);
+		// console.log("ID->"+id);
 		
 		const data = {
 			"username":AuthCtx.Auth.enteredName,

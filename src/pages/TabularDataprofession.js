@@ -129,7 +129,7 @@ export default function TabularDataprofession(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(results)}
+
             {tabledata
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {

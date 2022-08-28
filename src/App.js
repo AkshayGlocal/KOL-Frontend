@@ -19,6 +19,7 @@ import AnalystSpecialtyhome from './analyst-components/AnalystSpecialtyhome';
 import AnalystAreaofinterest from './analyst-components/AnalystAreaofinterest';
 import AnalystSpecialty from './analyst-components/AnalystSpecialty';
 import TabularData from './pages/TabularData';
+import ProfileRequested from './pages/ProfileRequested';
 
 export default function App() {
 	const LoginUserCtx = useContext(UserRoleContext);
@@ -50,10 +51,7 @@ export default function App() {
 				<Route
 					path="/profiles"
 					element={
-						<ProtectedRoute userName={userNameCtx} currentUserRole="admin">
-							{/* <ProfileSnapshot /> */}
 							<ProfileLayout />
-						</ProtectedRoute>
 					}
 				/>
 				<Route path="/areasofinterests" element={
@@ -113,6 +111,7 @@ export default function App() {
 
 				
 				} />
+				<Route path='/profileRequested' element={<ProfileRequested />} />
 				<Route path="/eg" element={<TabularData />} />
 
 				<Route path="/layout" element={<ProfileLayout />} />

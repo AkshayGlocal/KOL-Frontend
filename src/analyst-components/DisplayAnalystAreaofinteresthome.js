@@ -4,6 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { KolIdContext } from '../context/KolIdContext';
 import { AreasofInterestsContext } from '../context/AreasOfInterests';
 import { SpecialityContext } from '../context/SpecialityContext';
+
+import { NotificationContext } from '../context/Notification';
+import { AuthContext } from '../context/AuthContext';
+import check from '../images/checkarrow.png';
+import ApiConstants from '../constants/ApiConstants';
+import axios from '../service/axios';
+
 export default function DisplayAnalystAreaofInteresthome(props) {
 	let data = props.Results;
 	let results = [];
@@ -12,6 +19,75 @@ export default function DisplayAnalystAreaofInteresthome(props) {
 	const KolIdCtx = useContext(KolIdContext);
 	const AreasofInterestCtx = useContext(AreasofInterestsContext);
 	const SpecialityCtx = useContext(SpecialityContext);
+
+
+
+	const [globalRequest,setglobalRequest] = useState(false);
+	const [profiles,setProfiles] = useState([]);
+	const AuthCtx = useContext(AuthContext);
+	const NotificationCtx= useContext(NotificationContext);
+	const RequestProfile = (index,id) =>{
+		const date = new Date().toISOString();
+		const newdisplayKol = [...displayKol];
+		setglobalRequest(!globalRequest);
+		newdisplayKol[index].isRequested = true;
+		setdisplayKol(newdisplayKol);
+		console.log("Access Token->"+AuthCtx.Auth.access_token);
+		//console.log("Refresh Token->"+AuthCtx.Auth.refresh_token);
+	 	console.log("Username->"+AuthCtx.Auth.enteredName);
+		console.log("ID->"+id);
+		
+		const data = {
+			"username":AuthCtx.Auth.enteredName,
+			"createdAt":date,
+			"kolProfileId":id
+		}
+		const RequestProfileToBackend = async()=>{
+		const access_token = AuthCtx.Auth.access_token;
+		const options = {
+			method:'POST',
+			headers:{
+				"content-type": "application/json",
+				'Authorization':'Bearer '+access_token,
+			},
+			data:data,
+			url:ApiConstants.REQUEST_PROFILE,
+		};
+		try{
+			const response = await axios(options);
+			if(response?.status === 200){
+				console.log("Success");
+			}
+		}catch(error){
+			console.log(error);
+		}
+	}
+		RequestProfileToBackend();
+	}
+	
+	useEffect(()=>{
+		const sseForRequestProfile = new EventSource(
+			"http://localhost:8080/api/v1/sse"
+		  );
+		  sseForRequestProfile.onopen = (e) => {
+			console.log("Connected !");
+		  };
+		  sseForRequestProfile.addEventListener("all-request-profile-event", (event) => {
+			let jsonData = JSON.parse(event.data);
+			setProfiles(jsonData);
+			// console.log(jsonData);
+
+		  });
+		  sseForRequestProfile.onerror = (error) => {
+			console.log("SSE For sseForRequestProfile error", error);
+			sseForRequestProfile.close();
+		  };
+
+		  return () => {
+			sseForRequestProfile.close();
+		  };
+
+	},[globalRequest])
 	useEffect(
 		() => {
 			// id: { raw: {} },
@@ -46,9 +122,11 @@ export default function DisplayAnalystAreaofInteresthome(props) {
 		newdisplayKol[index].isClicked = false;
 		setdisplayKol(newdisplayKol);
 	};
-
+	
 	return (
+
 		<div>
+			{NotificationCtx.setNotificationHandler(profiles)}
 			{displayKol.map((e, index) => (
 				<div className="Card">
 					<h2 style={{ color: '#3259ED', fontFamily: 'Archivo' }}>{e.ID}</h2>
@@ -112,7 +190,24 @@ export default function DisplayAnalystAreaofInteresthome(props) {
 								</button>
 							</div>
 						) : null}
-						<button> Request KOL profile</button>
+						{e.isRequested ? (
+							<div className='profile-requested'>
+								<p><img src={check}  alt='check'/>
+									Profile Requested</p>
+							</div>
+						):(
+							<button
+						className='request-button'
+							onClick={() => {
+								RequestProfile(index,e.ID);
+							}}
+						>
+							{' '}
+							Request KOL profile
+						</button>	
+						
+						)
+						}	
 					</div>
 				</div>
 			))}

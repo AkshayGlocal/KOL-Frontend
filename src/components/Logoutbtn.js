@@ -10,7 +10,12 @@ import { AuthContext } from '../context/AuthContext';
 import EmailIcon from '@mui/icons-material/Email';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
+
+import { KolIdContext } from '../context/KolIdContext';
 export default function Logoutbtn() {
+
+	const KolIdCtx = useContext(KolIdContext);
+
 	const navigate = useNavigate();
 	const HandleClick = () => {
 		navigate('/login');
@@ -29,9 +34,16 @@ export default function Logoutbtn() {
 		setSignoutClick(!Signoutclick);
 		setnotificationClick(false);
 	}
+	const ProfileClickHandler = (e)=>{
+
+		KolIdCtx.setkolIdHandler(e);
+		navigate('/profiles');
+	}
+	const roles = AuthCtx.Auth?.roles;
+	
 	return (
 		<div className="logout">
-			<div className="notification-profile">
+				<div className="notification-profile">
 				<button onClick={notificationclickHandler} className='notify-container'>
 					<Badge badgeContent={NotificationCtx.Notification.length} color="primary">
 						<MailIcon color="action" />
@@ -43,14 +55,16 @@ export default function Logoutbtn() {
 							<div className='approved-heading'>
 							 <p>Approved Profiles</p>
 							</div>
-							{NotificationCtx.Notification.map(e=><button className='profile'>&nbsp;{e}<LaunchIcon className='icon-link'/></button>)}
+							{NotificationCtx.Notification.map(e=><button onClick={
+								()=>{
+									ProfileClickHandler(e);
+								}
+							} className='profile'>&nbsp;{e}<LaunchIcon className='icon-link'/></button>)}
 
 						</div>
 					) : null}
-
-
 			</div>
-
+				
 			{/* <button onClick={HandleClick} className="sign-out"> */}
 			<button className='logout-new' onClick={SignoutClickHandler}>
 				<img src={profileimage} alt='profile'/>

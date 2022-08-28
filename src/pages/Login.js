@@ -52,8 +52,8 @@ export default function Login() {
 			const refresh_token = response?.data?.refresh_token;
 			const s =jwtDecode(access_token);
 			const roles = s.roles;
-			console.log(...roles);
-			console.log("Access Token "+access_token);
+			// console.log(...roles);
+			// console.log("Access Token "+access_token);
 
 			AuthCtx.setAuthHandler({access_token,refresh_token,roles,
 				enteredName
