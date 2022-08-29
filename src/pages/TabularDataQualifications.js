@@ -144,7 +144,7 @@ export default function TabularDataQualifications(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log(results)}
+
             {tabledata
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {

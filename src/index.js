@@ -20,10 +20,12 @@ import { AuthContextProvider } from './context/AuthContext';
 import { NotificationProvider } from './context/Notification';
 
 
+
 ReactDOM.render(
 	<React.StrictMode>
 
 		 <LoginContextProvider>
+
 			<NotificationProvider>
 			<AuthContextProvider>
 			<KolIdProvider>
@@ -58,6 +60,7 @@ ReactDOM.render(
 			</KolIdProvider>
 			</AuthContextProvider>
 			</NotificationProvider>
+
 		 </LoginContextProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

@@ -4,13 +4,14 @@ import { useEffect,useState,useContext } from "react";
 import { AreasofInterestsContext } from '../context/AreasOfInterests';
 import { SpecialityContext } from '../context/SpecialityContext';
 import npi from '../images/id.png';
+import { AuthContext } from '../context/AuthContext';
 export default function DisplayNameContent(props){
     let data = props.Results;
 	let results = [];
 	const navigate = useNavigate();
 	const AreasofInterestCtx = useContext(AreasofInterestsContext);
 	const SpecialityCtx = useContext(SpecialityContext);
-	
+	const AuthCtx = useContext(AuthContext);
 	const [ DisplayNameContent, setDisplayNameContent ] = useState([ {} ]);
 	useEffect(
 		() => {
@@ -29,6 +30,7 @@ export default function DisplayNameContent(props){
 		},
 		[ data ]
 	);
+	
 	return (
 		<div>
 			
@@ -40,10 +42,17 @@ export default function DisplayNameContent(props){
 							{e.specialty &&
 								e.specialty.map((j, index) => (
 									<span className="area-card">
+										
 										<button
 											onClick={() => {
 												SpecialityCtx.setSpecialityHandler(j);
-												navigate('/specialtyhome');
+												AuthCtx.Auth?.roles.map((e)=>{
+													if(e==="ROLE_SUPER_ADMIN" || e==="ROLE_ADMIN"){
+														navigate('/specialtyhome');
+													}else{
+														navigate('/analyst-specialtyhome');
+													}
+												})
 											}}
 										>
 											{j}
@@ -64,7 +73,13 @@ export default function DisplayNameContent(props){
 										<button
 											onClick={() => {
 												AreasofInterestCtx.setAreasofInterestsHandler(j);
-												navigate('/areasofinterestshome');
+												AuthCtx.Auth?.roles.map((e)=>{
+													if(e==="ROLE_SUPER_ADMIN" || e==="ROLE_ADMIN"){
+														navigate('/areasofinterestshome');
+													}else{
+														navigate('/analyst-areahome');
+													}
+												})
 											}}
 										>
 											{j}
